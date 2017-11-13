@@ -88,14 +88,15 @@ def group_text(msg):
 	itchat.send(getip(ip), msg['FromUserName'])
     
     while 1:
-        all_msg = [
-            msg['MsgId'].decode('utf-8'),
-            msg['ActualUserName'].decode('utf-8'),
-            msg['CreateTime'],
-            msg['Content'].decode('utf-8')
-		]
-        cur.executemany("INSERT INTO SHENDUNJU VALUES (?,?,?,?)",all_msg)
-        conn.commit()
+        if msg:
+            all_msg = [
+                msg['MsgId'].decode('utf-8'),
+                msg['ActualUserName'].decode('utf-8'),
+                msg['CreateTime'],
+                msg['Content'].decode('utf-8')
+                ]
+            cur.executemany("INSERT INTO SHENDUNJU VALUES (?,?,?,?)",all_msg)
+            conn.commit()
     
     cur.execute('SELECT * FROM SHENDUNJU')
     print cur.fetchone()
